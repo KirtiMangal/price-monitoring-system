@@ -1,5 +1,6 @@
 from ..models import Product, PriceHistory
 from ..db import SessionLocal
+from .notifier import notify_price_change
 
 def update_products(data):
     db = SessionLocal()
@@ -38,7 +39,9 @@ def update_products(data):
                 )
                 db.add(history)
 
-                print("Price changed!")
+                notify_price_change(product.name, item["price"])
+
+                # print("Price changed!")
 
         db.commit()
 
