@@ -104,18 +104,48 @@ Thunder Client (VS Code Extension)
 - Stored price history separately for tracking changes
 - Designed APIs with filtering support for flexibility
 
-10. ⚠️ Limitations
-- Uses mock data instead of real scraping
-- No frontend interface
-- No authentication implemented (can be added)
 
+a) How does price history scale?
+
+- Price history can grow to millions of rows over time. To handle this:
+
+* Add indexes on `product_id` and timestamp for faster queries
+* Use table partitioning (by date or product)
+* Archive old data to cold storage if not frequently accessed
+
+b) How are price change notifications handled?
+
+* Implemented a file-based event logging system (`events.log`)
+* Each price change is recorded without blocking the main process
+* This ensures reliability and no data loss
+* Can be extended to webhooks, queues (Kafka), or async workers
+
+c) How would this scale to 100+ data sources?
+
+* Add separate fetchers for each source in the services layer
+* Use async fetching for parallel data collection
+* Introduce queue-based processing (Celery / Kafka)
+* Normalize product schema across sources
+
+d) Handling same product across multiple sources
+
+* Currently treated as separate entries using source field
+* Can be improved by:
+
+  - Using unique identifiers (SKU, product ID)
+  - Implementing product matching logic
+
+10. ⚠️ Limitations
+
+- Uses mock data instead of real marketplace APIs
+- No frontend UI implemented
+- Basic authentication (can be improved using JWT/OAuth)
 
 11. 🚀 Future Improvements
 - Integrate real-time web scraping
 - Add frontend dashboard
 - Implement authentication & authorization
 - Deploy application on cloud (AWS/Render)
-
 
 👨‍💻 Author
 ~ Kirti
