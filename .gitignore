@@ -1,4 +1,14 @@
-venv/
+# Python
 __pycache__/
 *.pyc
-test.db
+venv/
+.env
+
+# DB
+*.db
+
+# logs
+*.log
+
+# OS
+.DS_Store

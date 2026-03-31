@@ -58,15 +58,26 @@
 
 from fastapi import FastAPI, HTTPException
 from sqlalchemy import func
-from .db import engine, Base, SessionLocal
-from . import models
-from sqlalchemy import func
 
+from .db.database import engine, SessionLocal
+from .db.models import Base
+from .db import models
 
 from .services.fetcher import fetch_products
 from .services.price_service import update_products
 
+from fastapi.middleware.cors import CORSMiddleware
+
 app = FastAPI()
+
+# ✅ CORS FIX
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # allow all (for dev)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # create tables
 Base.metadata.create_all(bind=engine)

@@ -1,5 +1,5 @@
-from ..models import Product, PriceHistory
-from ..db import SessionLocal
+from ..db.models import Product, PriceHistory
+from ..db.database import SessionLocal
 from .notifier import notify_price_change
 
 def update_products(data):
