@@ -58,6 +58,7 @@
 
 from fastapi import FastAPI, HTTPException
 from sqlalchemy import func
+from pydantic import BaseModel
 
 from .db.database import engine, SessionLocal
 from .db.models import Base
@@ -71,8 +72,18 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import Depends
 from .auth import verify_api_key
 
+from .auth import (
+    hash_password,
+    verify_password,
+    create_access_token
+)
+
 request_count=0
 app = FastAPI()
+
+class AuthRequest(BaseModel):
+    username: str
+    password: str
 
 # ✅ CORS FIX
 app.add_middleware(
@@ -194,3 +205,43 @@ def analytics(api_key: str = Depends(verify_api_key)):
 @app.get("/usage")
 def usage(api_key: str = Depends(verify_api_key)):
     return {"total_requests": request_count}
+
+@app.post("/signup")
+def signup(data: AuthRequest):
+    db = SessionLocal()
+
+    existing_user = db.query(models.User).filter(models.User.username == data.username).first()
+    if existing_user:
+        raise HTTPException(status_code=400, detail="User already exists")
+
+    new_user = models.User(
+        username=data.username,
+        password=hash_password(data.password)
+    )
+
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    db.close()
+
+    return {"message": "User created successfully"}
+
+
+@app.post("/login")
+def login(data: AuthRequest):
+    db = SessionLocal()
+
+    user = db.query(models.User).filter(models.User.username == data.username).first()
+
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    if not verify_password(data.password, user.password):
+        raise HTTPException(status_code=401, detail="Wrong password")
+
+    token = create_access_token({"sub": user.username})
+
+    return {
+        "access_token": token,
+        "token_type": "bearer"
+    }
