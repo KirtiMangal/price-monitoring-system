@@ -11,3 +11,61 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* ====== APP UI STYLES ====== */
+nav {
+  background: #2c3e50;
+  padding: 12px;
+}
+
+nav a {
+  color: white;
+  margin-right: 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.container {
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+button {
+  padding: 8px 14px;
+  border: none;
+  background: #3498db;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #2980b9;
+}
+
+input {
+  padding: 6px;
+  margin-right: 10px;
+}
+
+table {
+  background: white;
+  border-collapse: collapse;
+}
+
+th {
+  background: #34495e;
+  color: white;
+  padding: 10px;
+}
+
+td {
+  padding: 8px;
+}
