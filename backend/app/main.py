@@ -68,6 +68,10 @@ from .services.price_service import update_products
 
 from fastapi.middleware.cors import CORSMiddleware
 
+from fastapi import Depends
+from .auth import verify_api_key
+
+request_count=0
 app = FastAPI()
 
 # ✅ CORS FIX
@@ -90,16 +94,32 @@ def home():
 
 # 🔥 REFRESH API
 @app.post("/refresh")
-async def refresh():
+async def refresh(api_key: str = Depends(verify_api_key)):
     data = await fetch_products()
     update_products(data)
     return {"message": "data refreshed"}
 
 
 # 🔥 GET ALL PRODUCTS (WITH FILTERING)
+# @app.get("/products")
+# def get_products(category: str = None, min_price: float = None, max_price: float = None):
+
+
 @app.get("/products")
-def get_products(category: str = None, min_price: float = None, max_price: float = None):
+def get_products(
+    category: str = None,
+    min_price: float = None,
+    max_price: float = None,
+    api_key: str = Depends(verify_api_key)
+):
+
+    global request_count
+    request_count += 1
+
     db = SessionLocal()
+
+
+    # db = SessionLocal()
     query = db.query(models.Product)
 
     if category:
@@ -118,9 +138,18 @@ def get_products(category: str = None, min_price: float = None, max_price: float
 
 
 # 🔥 GET PRODUCT BY ID + HISTORY
+# @app.get("/products/{id}")
+# def get_product(id: int):
+
 @app.get("/products/{id}")
-def get_product(id: int):
+def get_product(id: int, api_key: str = Depends(verify_api_key)):
+
+    global request_count
+    request_count += 1
+
     db = SessionLocal()
+
+    # db = SessionLocal()
 
     product = db.query(models.Product).filter_by(id=id).first()
 
@@ -139,9 +168,18 @@ def get_product(id: int):
 
 
 # 🔥 ANALYTICS
+# @app.get("/analytics")
+# def analytics():
+
 @app.get("/analytics")
-def analytics():
+def analytics(api_key: str = Depends(verify_api_key)):
+
+    global request_count
+    request_count += 1
+
     db = SessionLocal()
+
+    # db = SessionLocal()
 
     total = db.query(models.Product).count()
     avg_price = db.query(func.avg(models.Product.current_price)).scalar()
@@ -152,3 +190,7 @@ def analytics():
         "total_products": total,
         "avg_price": avg_price
     }
+
+@app.get("/usage")
+def usage(api_key: str = Depends(verify_api_key)):
+    return {"total_requests": request_count}
