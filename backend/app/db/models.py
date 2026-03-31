@@ -25,3 +25,12 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True)
     password = Column(String)
+
+class PriceChangeEvent(Base):
+    __tablename__ = "price_change_events"
+
+    id = Column(Integer, primary_key=True)
+    product_id = Column(Integer, ForeignKey("products.id"))
+    old_price = Column(Float)
+    new_price = Column(Float)
+    timestamp = Column(DateTime, default=datetime.utcnow)

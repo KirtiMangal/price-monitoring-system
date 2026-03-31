@@ -80,6 +80,7 @@ from .auth import (
 
 request_count=0
 app = FastAPI()
+Base.metadata.create_all(bind=engine)
 
 class AuthRequest(BaseModel):
     username: str
@@ -109,6 +110,13 @@ async def refresh(api_key: str = Depends(verify_api_key)):
     data = await fetch_products()
     update_products(data)
     return {"message": "data refreshed"}
+
+@app.get("/events")
+def get_events(api_key: str = Depends(verify_api_key)):
+    db = SessionLocal()
+    events = db.query(models.PriceChangeEvent).all()
+    db.close()
+    return events
 
 
 # 🔥 GET ALL PRODUCTS (WITH FILTERING)
