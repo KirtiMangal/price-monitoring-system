@@ -2,92 +2,145 @@
 
 1. Overview
 
-The Price Monitoring System is a backend application designed to track product prices from different sources and maintain their price history over time.
+The Price Monitoring System is a backend application that tracks product prices across multiple sources and maintains historical price data.
 
-2. It helps in:
+It is designed to simulate real-world e-commerce price tracking systems.
 
-- Monitoring price changes
-- Storing historical price data
-- Filtering products based on category and price
-- Providing basic analytics
+2. Features:
 
-3. 🛠️ Tech Stack
-Backend: FastAPI
-Database: SQLite
-ORM: SQLAlchemy
-Language: Python
+- Track products from multiple sources
+- Monitor price changes over time
+- Maintain complete price history
+- Provide analytics (total products, average price)
+- Filter products by category & price range
+- Detect and log price change events
 
+3. Tech Stack
 
-4. 📂 Project Structure
+| Layer    | Technology |
+| -------- | ---------- |
+| Backend  | FastAPI    |
+| Database | SQLite     |
+| ORM      | SQLAlchemy |
+| Language | Python     |
+
+4. Architecture
+
+Product -> Listing -> PriceHistory
+
+Explanation:
+
+- Product → Unique item (e.g., Amiri Jacket)
+- Listing → Same product on different sources (Grailed, Fashionphile)
+- PriceHistory → Tracks price changes over time per listing
+
+5. Project Structure
+
 price-monitoring-system/
 │
 ├── backend/
 │   ├── app/
-│   │   ├── main.py              # Main FastAPI application
-│   │   ├── db.py                # Database configuration
-│   │   ├── models.py            # Database models
-│   │   └── services/
-│   │       ├── fetcher.py       # Mock data fetching
-│   │       └── price_service.py # Price update logic
-│   └── requirements.txt
+│   │   ├── main.py               # FastAPI entry point
+│   │   ├── db/
+│   │   │   ├── database.py       # DB connection
+│   │   │   └── models.py         # DB models
+│   │   ├── services/
+│   │   │   ├── fetcher.py        # Data ingestion
+│   │   │   └── price_service.py  # Business logic
+│   │   ├── auth.py               # API key & JWT auth
+│   │
+│   └── test.db                   # SQLite database
 │
 └── README.md
 
 
-5. ⚙️ Setup Instructions
+6. Setup Instructions
 
 1️⃣ Clone Repository
-git clone <your-repo-link>
-cd price-monitoring-system/backend
+`git clone <your-repo-link>`
+`cd price-monitoring-system/backend`
 
 2️⃣ Create Virtual Environment
-python -m venv venv
-venv\Scripts\activate
+`python -m venv venv`
+`venv\Scripts\activate`
 
 3️⃣ Install Dependencies
-pip install -r requirements.txt
+`pip install -r requirements.txt`
 
 4️⃣ Run Server
-uvicorn app.main:app --reload
+`uvicorn app.main:app --reload`
 
-6. 📡 API Endpoints
+5️⃣ Open API Docs
+`http://127.0.0.1:8000/docs`
+
+
+7. API Endpoints
+
+🔐 Authentication
+
+- All protected endpoints require:
+
+Header:
+`x-api-key: secret123`
 
 🔄 Refresh Products
 
-- Fetches new data and updates price history.
+- Fetch and store product data from sources.
 
-POST /refresh
+POST `/refresh`
+
 📦 Get All Products
 
 - Returns all products with optional filtering.
 
-GET /products
-Optional Query Parameters:
-category → filter by category
-min_price → minimum price
-max_price → maximum price
+GET `/products`
+
+Query Params:
+- category
+- min_price
+- max_price
 
 Example:
 
-/products?category=bags
-/products?min_price=100&max_price=300
+`/products?category=accessories`
+`/products?min_price=100&max_price=500`
 
-📄 Get Product Details
+📄 Get Product Details + History
 
 - Returns product info along with price history.
 
-GET /products/{id}
+GET `/products/{id}`
 
-7. 📊 Analytics
+Response:
+
+{
+  "product": {...},
+  "history": [...]
+}
+
+📊 Analytics
 
 - Returns summary of product data.
 
-GET /analytics
+GET `/analytics`
 
 - Response includes:
 
 a) Total number of products
 b) Average price
+
+{
+  "total_products": 3,
+  "avg_price": 350.0
+}
+
+🔔 Price Change Events
+
+GET `/events`
+
+📈 API Usage Tracking
+
+GET `/usage`
 
 8. 🧪 Testing
 
@@ -98,54 +151,24 @@ Thunder Client (VS Code Extension)
 
 ⚠️ Make sure to call /refresh before fetching products.
 
-9. 🧠 Design Decisions
+9. Design Decisions
 - Used SQLite for simplicity and easy setup
 - Structured project into services for better scalability
 - Stored price history separately for tracking changes
 - Designed APIs with filtering support for flexibility
 
-
-a) How does price history scale?
-
-- Price history can grow to millions of rows over time. To handle this:
-
-* Add indexes on `product_id` and timestamp for faster queries
-* Use table partitioning (by date or product)
-* Archive old data to cold storage if not frequently accessed
-
-b) How are price change notifications handled?
-
-* Implemented a file-based event logging system (`events.log`)
-* Each price change is recorded without blocking the main process
-* This ensures reliability and no data loss
-* Can be extended to webhooks, queues (Kafka), or async workers
-
-c) How would this scale to 100+ data sources?
-
-* Add separate fetchers for each source in the services layer
-* Use async fetching for parallel data collection
-* Introduce queue-based processing (Celery / Kafka)
-* Normalize product schema across sources
-
-d) Handling same product across multiple sources
-
-* Currently treated as separate entries using source field
-* Can be improved by:
-
-  - Using unique identifiers (SKU, product ID)
-  - Implementing product matching logic
-
-10. ⚠️ Limitations
+10. Limitations
 
 - Uses mock data instead of real marketplace APIs
 - No frontend UI implemented
 - Basic authentication (can be improved using JWT/OAuth)
 
-11. 🚀 Future Improvements
+11. Future Improvements
 - Integrate real-time web scraping
 - Add frontend dashboard
 - Implement authentication & authorization
 - Deploy application on cloud (AWS/Render)
+- Add Redis caching
 
-👨‍💻 Author
+12. Author
 ~ Kirti
