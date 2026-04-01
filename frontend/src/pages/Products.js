@@ -33,7 +33,7 @@ export default function Products() {
                     <tr key={p.id}>
                     <td>{p.name}</td>
                     <td>{p.category}</td>
-                    <td>{p.current_price}</td>
+                    <td>{p.price}</td>
                     <td>
                         <Link to={`/products/${p.id}`}>Details</Link>
                     </td>

@@ -69,6 +69,8 @@ from .services.price_service import update_products
 
 from fastapi.middleware.cors import CORSMiddleware
 
+from sqlalchemy.orm import joinedload
+
 from fastapi import Depends
 from .auth import verify_api_key
 
@@ -124,6 +126,37 @@ def get_events(api_key: str = Depends(verify_api_key)):
 # def get_products(category: str = None, min_price: float = None, max_price: float = None):
 
 
+# @app.get("/products")
+# def get_products(
+#     category: str = None,
+#     min_price: float = None,
+#     max_price: float = None,
+#     api_key: str = Depends(verify_api_key)
+# ):
+
+#     global request_count
+#     request_count += 1
+
+#     db = SessionLocal()
+
+
+#     # db = SessionLocal()
+#     query = db.query(models.Product)
+
+#     if category:
+#         query = query.filter(models.Product.category == category)
+
+#     if min_price:
+#         query = query.filter(models.Product.current_price >= min_price)
+
+#     if max_price:
+#         query = query.filter(models.Product.current_price <= max_price)
+
+#     products = query.all()
+#     db.close()
+
+#     return products
+
 @app.get("/products")
 def get_products(
     category: str = None,
@@ -131,29 +164,37 @@ def get_products(
     max_price: float = None,
     api_key: str = Depends(verify_api_key)
 ):
-
     global request_count
     request_count += 1
 
     db = SessionLocal()
 
+    products = db.query(models.Product).all()
+    result = []
 
-    # db = SessionLocal()
-    query = db.query(models.Product)
+    for p in products:
+        listings = db.query(models.Listing).filter_by(product_id=p.id).all()
 
-    if category:
-        query = query.filter(models.Product.category == category)
+        # get first listing price (simple approach)
+        price = listings[0].current_price if listings else None
 
-    if min_price:
-        query = query.filter(models.Product.current_price >= min_price)
+        # apply filters manually (since price is in Listing)
+        if min_price and price is not None and price < min_price:
+            continue
+        if max_price and price is not None and price > max_price:
+            continue
+        if category and p.category != category:
+            continue
 
-    if max_price:
-        query = query.filter(models.Product.current_price <= max_price)
+        result.append({
+            "id": p.id,
+            "name": p.name,
+            "category": p.category,
+            "price": price
+        })
 
-    products = query.all()
     db.close()
-
-    return products
+    return result
 
 
 # 🔥 GET PRODUCT BY ID + HISTORY
