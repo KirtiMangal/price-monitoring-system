@@ -1,13 +1,10 @@
-              Price Monitoring System
+                                                       Price Monitoring System
 
 1. Overview
+- The Price Monitoring System is a backend application that tracks product prices across multiple sources and maintains historical price data.
+- It is designed to simulate real-world e-commerce price tracking systems.
 
-The Price Monitoring System is a backend application that tracks product prices across multiple sources and maintains historical price data.
-
-It is designed to simulate real-world e-commerce price tracking systems.
-
-2. Features:
-
+2. Features 
 - Track products from multiple sources
 - Monitor price changes over time
 - Maintain complete price history
@@ -35,23 +32,27 @@ Explanation:
 - PriceHistory → Tracks price changes over time per listing
 
 5. Project Structure
-
+   
+```
 price-monitoring-system/
 │
 ├── backend/
 │   ├── app/
-│   │   ├── main.py               # FastAPI entry point
-│   │   ├── db/
-│   │   │   ├── database.py       # DB connection
-│   │   │   └── models.py         # DB models
-│   │   ├── services/
-│   │   │   ├── fetcher.py        # Data ingestion
-│   │   │   └── price_service.py  # Business logic
-│   │   ├── auth.py               # API key & JWT auth
+│   │   └── main.py          # FastAPI entry point
 │   │
-│   └── test.db                   # SQLite database
+│   ├── db/
+│   │   ├── database.py      # DB connection
+│   │   └── models.py        # DB models
+│   │
+│   ├── services/
+│   │   ├── fetcher.py       # Data ingestion
+│   │   └── price_service.py # Business logic
+│   │
+│   ├── auth.py              # API key & JWT auth
+│   └── test.db              # SQLite database
 │
 └── README.md
+```
 
 
 6. Setup Instructions
@@ -73,23 +74,22 @@ price-monitoring-system/
 5️⃣ Open API Docs
 `http://127.0.0.1:8000/docs`
 
-
 7. API Endpoints
 
-🔐 Authentication
+i. Authentication
 
 - All protected endpoints require:
 
 Header:
 `x-api-key: secret123`
 
-🔄 Refresh Products
+ii. Refresh Products
 
 - Fetch and store product data from sources.
 
 POST `/refresh`
 
-📦 Get All Products
+iii. Get All Products
 
 - Returns all products with optional filtering.
 
@@ -105,7 +105,7 @@ Example:
 `/products?category=accessories`
 `/products?min_price=100&max_price=500`
 
-📄 Get Product Details + History
+iv. Get Product Details + History
 
 - Returns product info along with price history.
 
@@ -118,7 +118,7 @@ Response:
   "history": [...]
 }
 
-📊 Analytics
+v. Analytics
 
 - Returns summary of product data.
 
@@ -134,22 +134,20 @@ b) Average price
   "avg_price": 350.0
 }
 
-🔔 Price Change Events
+vi. Price Change Events
 
 GET `/events`
 
-📈 API Usage Tracking
+vii. API Usage Tracking
 
 GET `/usage`
 
-8. 🧪 Testing
+8. Testing
 
 You can test APIs using:
 
-Swagger UI → http://127.0.0.1:8000/docs
+Swagger UI → `http://127.0.0.1:8000/docs`
 Thunder Client (VS Code Extension)
-
-⚠️ Make sure to call /refresh before fetching products.
 
 9. Design Decisions
 - Used SQLite for simplicity and easy setup
@@ -158,7 +156,6 @@ Thunder Client (VS Code Extension)
 - Designed APIs with filtering support for flexibility
 
 10. Limitations
-
 - Uses mock data instead of real marketplace APIs
 - No frontend UI implemented
 - Basic authentication (can be improved using JWT/OAuth)
@@ -171,4 +168,5 @@ Thunder Client (VS Code Extension)
 - Add Redis caching
 
 12. Author
-~ Kirti
+    
+  ~ `Kirti`
