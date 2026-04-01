@@ -240,6 +240,27 @@ def get_product(id: int, api_key: str = Depends(verify_api_key)):
 # @app.get("/analytics")
 # def analytics():
 
+# @app.get("/analytics")
+# def analytics(api_key: str = Depends(verify_api_key)):
+
+#     global request_count
+#     request_count += 1
+
+#     db = SessionLocal()
+
+#     # db = SessionLocal()
+
+#     total = db.query(models.Product).count()
+#     avg_price = db.query(func.avg(models.Product.current_price)).scalar()
+
+#     db.close()
+
+#     return {
+#         "total_products": total,
+#         "avg_price": avg_price
+#     }
+
+
 @app.get("/analytics")
 def analytics(api_key: str = Depends(verify_api_key)):
 
@@ -248,15 +269,15 @@ def analytics(api_key: str = Depends(verify_api_key)):
 
     db = SessionLocal()
 
-    # db = SessionLocal()
+    total_products = db.query(models.Product).count()
 
-    total = db.query(models.Product).count()
-    avg_price = db.query(func.avg(models.Product.current_price)).scalar()
+    # ✅ FIX: get avg price from Listing table
+    avg_price = db.query(func.avg(models.Listing.current_price)).scalar()
 
     db.close()
 
     return {
-        "total_products": total,
+        "total_products": total_products,
         "avg_price": avg_price
     }
 
