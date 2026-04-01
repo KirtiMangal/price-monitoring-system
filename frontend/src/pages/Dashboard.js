@@ -15,13 +15,6 @@ export default function Dashboard() {
         return <p>Loading...</p>;
     }
 
-//     return (
-//         <div>
-//             <h2>Dashboard</h2>
-//             <pre>{JSON.stringify(data, null, 2)}</pre>
-//         </div>
-//     );
-
 
 return (
     <div style={{ padding: "20px" }}>

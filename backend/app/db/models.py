@@ -8,8 +8,6 @@ class Product(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     category = Column(String)
-    # source = Column(String)
-    # current_price = Column(Float)
 
 # Listing (per marketplace)
 class Listing(Base):
@@ -20,14 +18,6 @@ class Listing(Base):
     source = Column(String)
     current_price = Column(Float)
     url = Column(String)
-
-# class PriceHistory(Base):
-    # __tablename__ = "price_history"
-
-    # id = Column(Integer, primary_key=True)
-    # product_id = Column(Integer, ForeignKey("products.id"))
-    # price = Column(Float)
-    # timestamp = Column(DateTime, default=datetime.utcnow)
 
 # Price History
 class PriceHistory(Base):
@@ -44,15 +34,6 @@ class User(Base):
     id = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, index=True)
     password = Column(String)
-
-# class PriceChangeEvent(Base):
-#     __tablename__ = "price_change_events"
-
-#     id = Column(Integer, primary_key=True)
-#     product_id = Column(Integer, ForeignKey("products.id"))
-#     old_price = Column(Float)
-#     new_price = Column(Float)
-#     timestamp = Column(DateTime, default=datetime.utcnow)
 
 class PriceChangeEvent(Base):
     __tablename__ = "price_change_events"

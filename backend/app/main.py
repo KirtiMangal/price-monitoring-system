@@ -1,61 +1,3 @@
-# from fastapi import FastAPI
-# from .db import engine, Base
-# from . import models
-# from .services.fetcher import fetch_products
-# from .services.price_service import update_products
-# from .db import engine, Base, SessionLocal
-# from fastapi import HTTPException
-
-# app = FastAPI()
-
-# # create tables
-# Base.metadata.create_all(bind=engine)
-
-# @app.get("/")
-# def home():
-#     return {"message": "API running"}
-
-
-# @app.post("/refresh")
-# async def refresh():
-#     data = await fetch_products()
-#     update_products(data)
-#     return {"message": "data refreshed"}
-
-    
-
-# @app.get("/products")
-
-# def get_products(category: str = None, min_price: float = None, max_price: float = None):
-#     db = SessionLocal()
-#     query = db.query(models.Product)
-
-#     if category:
-#         query = query.filter(models.Product.category == category)
-
-#     if min_price:
-#         query = query.filter(models.Product.current_price >= min_price)
-
-#     if max_price:
-#         query = query.filter(models.Product.current_price <= max_price)
-
-#     products = query.all()
-#     db.close()
-
-#     return products
-
-    
-
-    
-
-    
-
-# # def get_products():
-# #     db = SessionLocal()
-# #     products = db.query(models.Product).all()
-# #     db.close()
-# #     return products
-
 from fastapi import FastAPI, HTTPException
 from sqlalchemy import func
 from pydantic import BaseModel
@@ -121,42 +63,6 @@ def get_events(api_key: str = Depends(verify_api_key)):
     return events
 
 
-# 🔥 GET ALL PRODUCTS (WITH FILTERING)
-# @app.get("/products")
-# def get_products(category: str = None, min_price: float = None, max_price: float = None):
-
-
-# @app.get("/products")
-# def get_products(
-#     category: str = None,
-#     min_price: float = None,
-#     max_price: float = None,
-#     api_key: str = Depends(verify_api_key)
-# ):
-
-#     global request_count
-#     request_count += 1
-
-#     db = SessionLocal()
-
-
-#     # db = SessionLocal()
-#     query = db.query(models.Product)
-
-#     if category:
-#         query = query.filter(models.Product.category == category)
-
-#     if min_price:
-#         query = query.filter(models.Product.current_price >= min_price)
-
-#     if max_price:
-#         query = query.filter(models.Product.current_price <= max_price)
-
-#     products = query.all()
-#     db.close()
-
-#     return products
-
 @app.get("/products")
 def get_products(
     category: str = None,
@@ -197,10 +103,6 @@ def get_products(
     return result
 
 
-# 🔥 GET PRODUCT BY ID + HISTORY
-# @app.get("/products/{id}")
-# def get_product(id: int):
-
 @app.get("/products/{id}")
 def get_product(id: int, api_key: str = Depends(verify_api_key)):
 
@@ -234,31 +136,6 @@ def get_product(id: int, api_key: str = Depends(verify_api_key)):
         "product": product,
         "history": history
     }
-
-
-# 🔥 ANALYTICS
-# @app.get("/analytics")
-# def analytics():
-
-# @app.get("/analytics")
-# def analytics(api_key: str = Depends(verify_api_key)):
-
-#     global request_count
-#     request_count += 1
-
-#     db = SessionLocal()
-
-#     # db = SessionLocal()
-
-#     total = db.query(models.Product).count()
-#     avg_price = db.query(func.avg(models.Product.current_price)).scalar()
-
-#     db.close()
-
-#     return {
-#         "total_products": total,
-#         "avg_price": avg_price
-#     }
 
 
 @app.get("/analytics")

@@ -7,13 +7,6 @@ export default function ProductDetail() {
     const [product, setProduct] = useState(null);
     const [history, setHistory] = useState([]);
 
-    // useEffect(() => {
-    //     API.get(`/products/${id}`)
-    //     .then(res => setProduct(res.data));
-
-    //     API.get(`/products/${id}/history`)
-    //     .then(res => setHistory(res.data));
-    // }, [id]);
 
     useEffect(() => {
         API.get(`/products/${id}`)
