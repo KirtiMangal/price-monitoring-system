@@ -176,7 +176,16 @@ def get_product(id: int, api_key: str = Depends(verify_api_key)):
         db.close()
         raise HTTPException(status_code=404, detail="Product not found")
 
-    history = db.query(models.PriceHistory).filter_by(product_id=id).all()
+    # history = db.query(models.PriceHistory).filter_by(product_id=id).all()
+
+    # pehle listing nikaal
+    listings = db.query(models.Listing).filter_by(product_id=id).all()
+
+    history = []
+
+    for listing in listings:
+        h = db.query(models.PriceHistory).filter_by(listing_id=listing.id).all()
+        history.extend(h)
 
     db.close()
 

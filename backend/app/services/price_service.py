@@ -47,7 +47,7 @@
 
 #     db.close()
 
-from ..db.models import Product, PriceHistory, PriceChangeEvent
+from ..db.models import Product, Listing, PriceHistory, PriceChangeEvent
 from ..db.database import SessionLocal
 from .notifier import notify_price_change
 
@@ -56,48 +56,109 @@ def update_products(data):
 
     try:
         for item in data:
+            # product = db.query(Product).filter_by(
+            #     name=item["name"],
+            #     source=item["source"]
+            # ).first()
+
             product = db.query(Product).filter_by(
-                name=item["name"],
-                source=item["source"]
+                name=item["name"]
             ).first()
+
+            # 🆕 NEW PRODUCT
+            # if not product:
+            #     product = Product(
+            #         name=item["name"],
+            #         category=item["category"],
+            #         source=item["source"],
+            #         current_price=item["price"]
+            #     )
+            #     db.add(product)
+            #     db.flush()   # 🔥 better than commit (gets ID immediately)
+
+            #     db.add(PriceHistory(
+            #         product_id=product.id,
+            #         price=item["price"]
+            #     ))
+
+            # # 🔄 EXISTING PRODUCT
+            # else:
+            #     if product.current_price != item["price"]:
+            #         old_price = product.current_price
+            #         product.current_price = item["price"]
+
+            #         db.add(PriceHistory(
+            #             product_id=product.id,
+            #             price=item["price"]
+            #         ))
+
+            #         db.add(PriceChangeEvent(
+            #             product_id=product.id,
+            #             old_price=old_price,
+            #             new_price=item["price"]
+            #         ))
+
+            #         # 🔥 SAFE NOTIFY (won't break system)
+            #         try:
+            #             notify_price_change(
+            #                 product.name,
+            #                 old_price,
+            #                 item["price"]
+            #             )
+            #         except Exception as e:
+            #             print("Notifier failed:", e)
 
             # 🆕 NEW PRODUCT
             if not product:
                 product = Product(
                     name=item["name"],
-                    category=item["category"],
-                    source=item["source"],
-                    current_price=item["price"]
+                    category=item["category"]
                 )
                 db.add(product)
-                db.flush()   # 🔥 better than commit (gets ID immediately)
+                db.flush()
+
+            # 🟢 LISTING CHECK
+            listing = db.query(Listing).filter_by(
+                product_id=product.id,
+                source=item["source"]
+            ).first()
+
+            # 🆕 NEW LISTING
+            if not listing:
+                listing = Listing(
+                    product_id=product.id,
+                    source=item["source"],
+                    current_price=item["price"],
+                    url=item.get("url")
+                )
+                db.add(listing)
+                db.flush()
 
                 db.add(PriceHistory(
-                    product_id=product.id,
+                    listing_id=listing.id,
                     price=item["price"]
                 ))
 
-            # 🔄 EXISTING PRODUCT
+            # 🔄 EXISTING LISTING
             else:
-                if product.current_price != item["price"]:
-                    old_price = product.current_price
-                    product.current_price = item["price"]
+                if listing.current_price != item["price"]:
+                    old_price = listing.current_price
+                    listing.current_price = item["price"]
 
                     db.add(PriceHistory(
-                        product_id=product.id,
+                        listing_id=listing.id,
                         price=item["price"]
                     ))
 
                     db.add(PriceChangeEvent(
-                        product_id=product.id,
+                        listing_id=listing.id,
                         old_price=old_price,
                         new_price=item["price"]
                     ))
 
-                    # 🔥 SAFE NOTIFY (won't break system)
                     try:
                         notify_price_change(
-                            product.name,
+                            item["name"],
                             old_price,
                             item["price"]
                         )

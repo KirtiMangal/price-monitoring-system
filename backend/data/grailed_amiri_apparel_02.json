@@ -1,0 +1,111 @@
+{
+  "brand": "amiri",
+  "model": "Amiri Denim Jacket",
+  "price": 405.0,
+  "size": null,
+  "image_url": "https://media-assets.grailed.com/prd/listing/temp/5a51b42de2df41bd94ea05d71acf9623",
+  "product_url": "https://www.grailed.com/listings/83826392",
+  "metadata": {
+    "seller_info": {},
+    "full_product_description": "",
+    "color": "Multi",
+    "style": "Business",
+    "is_sold": false
+  },
+  "main_images": [
+    {
+      "url": "https://media-assets.grailed.com/prd/listing/temp/5a51b42de2df41bd94ea05d71acf9623?w=1600",
+      "format": "image/jpeg",
+      "metadata": {
+        "description": "Amiri Amiri Denim Jacket Size US M / EU 48-50 / 2 - 1 Thumbnail",
+        "width": "1600",
+        "original_width": "72",
+        "original_height": "72"
+      }
+    },
+    {
+      "url": "https://media-assets.grailed.com/prd/listing/temp/8b960c4b9e86410196d6b5c8151a3197?w=1600",
+      "format": "image/jpeg",
+      "metadata": {
+        "description": "Amiri Amiri Denim Jacket Size US M / EU 48-50 / 2 - 2 Thumbnail",
+        "width": "1600",
+        "original_width": "72",
+        "original_height": "72"
+      }
+    },
+    {
+      "url": "https://media-assets.grailed.com/prd/listing/temp/d341c3008d104bf685b25cc79c7dd7b3?w=1600",
+      "format": "image/jpeg",
+      "metadata": {
+        "description": "Amiri Amiri Denim Jacket Size US M / EU 48-50 / 2 - 3 Thumbnail",
+        "width": "1600",
+        "original_width": "72",
+        "original_height": "72"
+      }
+    },
+    {
+      "url": "https://media-assets.grailed.com/prd/listing/temp/6a7e6638dc72448a84a58d6070708ca4?w=1600",
+      "format": "image/jpeg",
+      "metadata": {
+        "description": "Amiri Amiri Denim Jacket Size US M / EU 48-50 / 2 - 4 Thumbnail",
+        "width": "1600",
+        "original_width": "72",
+        "original_height": "72"
+      }
+    },
+    {
+      "url": "https://media-assets.grailed.com/prd/listing/temp/250c6a1679de411b9a0ce624f854de96?w=1600",
+      "format": "image/jpeg",
+      "metadata": {
+        "description": "Amiri Amiri Denim Jacket Size US M / EU 48-50 / 2 - 5 Thumbnail",
+        "width": "1600",
+        "original_width": "72",
+        "original_height": "72"
+      }
+    },
+    {
+      "url": "https://media-assets.grailed.com/prd/listing/temp/61d445741eea4066a63bee32bdd90c36?w=1600",
+      "format": "image/jpeg",
+      "metadata": {
+        "description": "Amiri Amiri Denim Jacket Size US M / EU 48-50 / 2 - 6 Thumbnail",
+        "width": "1600",
+        "original_width": "72",
+        "original_height": "72"
+      }
+    },
+    {
+      "url": "https://media-assets.grailed.com/prd/listing/temp/1ed38f87af6148fa9fdd90e5b7c9868e?w=1600",
+      "format": "image/jpeg",
+      "metadata": {
+        "description": "Amiri Amiri Denim Jacket Size US M / EU 48-50 / 2 - 7 Thumbnail",
+        "width": "1600",
+        "original_width": "72",
+        "original_height": "72"
+      }
+    },
+    {
+      "url": "https://media-assets.grailed.com/prd/listing/temp/ed5c28633d3d483bae81c105fb01e4b0?w=1600",
+      "format": "image/jpeg",
+      "metadata": {
+        "description": "Amiri Amiri Denim Jacket Size US M / EU 48-50 / 2 - 8 Thumbnail",
+        "width": "1600",
+        "original_width": "72",
+        "original_height": "72"
+      }
+    },
+    {
+      "url": "https://media-assets.grailed.com/prd/listing/temp/cb986227b4c4466086c57d3a119d4fee?w=1600",
+      "format": "image/jpeg",
+      "metadata": {
+        "description": "Amiri Amiri Denim Jacket Size US M / EU 48-50 / 2 - 9 Thumbnail",
+        "width": "1600",
+        "original_width": "72",
+        "original_height": "72"
+      }
+    }
+  ],
+  "session_id": "03411a85-8dc2-4a3e-8a6f-c9f34bef14f6",
+  "product_id": "e2bd5c00-0fc1-4900-89b6-dd310a412812",
+  "brand_id": "amiri",
+  "function_id": "apparel_authentication"
+}

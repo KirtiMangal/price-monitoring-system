@@ -1,0 +1,77 @@
+{
+  "product_url": "https://www.fashionphile.com/products/tiffany-18k-rose-gold-medium-t-wire-hoop-earrings-1806623",
+  "condition": "Shows Wear",
+  "price": 1480.0,
+  "currency": "USD",
+  "image_url": "https://scraping-framework-s3-public.s3.us-east-1.amazonaws.com/image_cache/tiffany/20260218_103440/52759c000428519a190056a6eb09934b.jpg",
+  "main_images": [
+    {
+      "url": "https://scraping-framework-s3-public.s3.us-east-1.amazonaws.com/image_cache/tiffany/20260218_103440/52759c000428519a190056a6eb09934b.jpg",
+      "format": "image/jpeg",
+      "metadata": {
+        "description": "Tiffany 18K Rose Gold Medium T Wire Hoop Earrings 1 of 4",
+        "original_url": "https://www.fashionphile.com/cdn/shop/files/5fdb13b7192d481cc765e27ef66b64b1.jpg?v=1770395742&width=1946"
+      }
+    },
+    {
+      "url": "https://scraping-framework-s3-public.s3.us-east-1.amazonaws.com/image_cache/tiffany/20260218_103440/12329caa1f4fbcaea09c326e302766cd.jpg",
+      "format": "image/jpeg",
+      "metadata": {
+        "description": "Tiffany 18K Rose Gold Medium T Wire Hoop Earrings 2 of 4",
+        "original_url": "https://www.fashionphile.com/cdn/shop/files/3349479d1df3c115347498a81729fdb2.jpg?v=1770395742&width=1946"
+      }
+    },
+    {
+      "url": "https://scraping-framework-s3-public.s3.us-east-1.amazonaws.com/image_cache/tiffany/20260218_103441/8f33c57bd13f552b95b58cfbe0d79980.jpg",
+      "format": "image/jpeg",
+      "metadata": {
+        "description": "Tiffany 18K Rose Gold Medium T Wire Hoop Earrings 3 of 4",
+        "original_url": "https://www.fashionphile.com/cdn/shop/files/b2779afea566f72011e388c0eb0dda22.jpg?v=1770395742&width=1946"
+      }
+    },
+    {
+      "url": "https://scraping-framework-s3-public.s3.us-east-1.amazonaws.com/image_cache/tiffany/20260218_103441/2ad7d2c3f0f775e04443644a0877a173.jpg",
+      "format": "image/jpeg",
+      "metadata": {
+        "description": "Tiffany 18K Rose Gold Medium T Wire Hoop Earrings 4 of 4",
+        "original_url": "https://www.fashionphile.com/cdn/shop/files/298a65c50518406684bdc648144d3ee2.jpg?v=1770395742&width=1946"
+      }
+    }
+  ],
+  "product_id": "84f903a5-3c76-53d5-9d31-25956c2ffdc3",
+  "brand_id": "tiffany",
+  "function_id": "apparel_authentication",
+  "metadata": {
+    "garment_type": "jewelry",
+    "description": "This is an authentic TIFFANY 18K Rose Gold Medium T Wire Hoop Earrings. The earrings are crafted of 18 karat rose gold and feature stylized open 'T' hoops.",
+    "size_dimensions": {
+      "length": "23 mm",
+      "width": "11 mm",
+      "height": null,
+      "drop": null
+    },
+    "material": "18 karat rose gold",
+    "item_number": "1806623",
+    "includes": [
+      "FASHIONPHILE Certificate of Authenticity"
+    ],
+    "pickup_location": "San Diego Flagship",
+    "shipping": {
+      "domestic": "Free",
+      "international": "Prices determined by item size & destination"
+    },
+    "returns": {
+      "policy": "Yes! All item(s) must be returned to FASHIONPHILE within fifteen (15) days of the order delivery date with tags attached and in the original condition in order to receive a full refund."
+    },
+    "condition_details": {
+      "exterior": null,
+      "handle": null,
+      "hardware": "Scratch(es)",
+      "interior": null
+    },
+    "original_price": 2100.0,
+    "sku": "1806623"
+  },
+  "brand": "Tiffany",
+  "model": "Tiffany 18K Rose Gold Medium T Wire Hoop Earrings"
+}
